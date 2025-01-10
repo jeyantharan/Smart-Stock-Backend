@@ -15,6 +15,9 @@ router.post("/login",UserController.User_Login);
 //User Info
 router.get("/userInfo",authMiddleware,UserController.User_Info);
 
+// Update user profile
+router.put('/profile', authMiddleware,UserController.UpdateUserProfile);
+
 
 
 module.exports = router;

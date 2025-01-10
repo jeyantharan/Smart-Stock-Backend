@@ -37,3 +37,29 @@ exports.User_Info = async(req,res)=>{
         res.status(400).json({ error: err.message });
     }
 }
+
+
+exports.UpdateUserProfile = async (req, res) => {
+    const user = await User.findById(req.user.id);
+  
+    if (user) {
+      user.username = req.body.username || user.username;
+      user.email = req.body.email || user.email;
+      if (req.body.password) {
+        user.password = req.body.password;
+      }
+      user.address = req.body.address || user.address;
+  
+      const updatedUser = await user.save();
+  
+      res.json({
+        _id: updatedUser._id,
+        username: updatedUser.username,
+        email: updatedUser.email,
+        role: updatedUser.role,
+        address: updatedUser.address,
+      });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  };
