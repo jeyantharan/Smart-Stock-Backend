@@ -6,7 +6,13 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['user', 'admin'], default: 'user' },
-});
+  address: {
+    street: String,
+    city: String,
+    province: String,
+    zip: String,
+  },
+},{ timestamps: true });
 
 // Hash password before saving
 userSchema.pre('save', async function (next) {
