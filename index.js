@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-
+const cors = require('cors');
 
 const UserRoutes = require('./Route/User');
 const ProductRoutes = require('./Route/Product');
@@ -18,6 +18,12 @@ const PORT = process.env.PORT || 5001;
 // // Middleware
 // app.use(express.json());
 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true, 
+}));
+
 // Routes
 app.use('/user', UserRoutes);
 app.use('/product', ProductRoutes);
@@ -25,7 +31,7 @@ app.use('/product', ProductRoutes);
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI || 'mongodb://localhost:27017/Smart-Stock')
+  .connect(process.env.MONGO_URI || 'mongodb+srv://Jeyanth:Jeyanth@atlascluster.jootpmm.mongodb.net/Smart-Stock')
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
